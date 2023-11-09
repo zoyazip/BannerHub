@@ -1,0 +1,25 @@
+.dragAndDrop__container {
+    width: 100%;
+    height: 85px;
+    background-color: #F9FBFF;
+    border-radius: 16px;
+    border: 2px dashed #E1E6F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s;
+    box-sizing: border-box;
+}
+.dragAndDrop__container:hover {
+    background-color: #f4f7fd;
+}
+
+.dnd__icon {
+    margin-right: 12px;
+}
+
+.chooseFile {
+    color: #0066FF;
+    text-decoration: underline;
+}
