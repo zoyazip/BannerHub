@@ -1,0 +1,85 @@
+.configuration {
+    width: 258px;
+    height: 560px;
+    background-color: #0066FF;
+    border-radius: 15px;
+    color: #fff;
+    padding: 20px 20px;
+    box-sizing: border-box;
+}
+
+.configuration h2 {
+    font-size: 24px;
+}
+
+.config__selector {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.config__selector select {
+    width: 100%;
+    height: 45px;
+    outline: none;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.config__selector option {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.image__compress {
+    margin-top: 20px;
+}
+.image__compress label {
+    margin-left: 10px;
+}
+.image__compress input {
+    height: 15px;
+    width: 15px;
+}
+
+.link__input {
+    width: 100%;
+    margin-top: 20px;
+}
+.link__input input {
+    width: 100%;
+    height: 45px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+.link__input input::placeholder {
+    font-size: 16px;
+}
+
+.sendBtn {
+    margin-bottom: 20px;
+}
+.sendBtn button {
+    width: 100%;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.configuration__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
