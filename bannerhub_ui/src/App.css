@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+
+  font-family: 'Inter', sans-serif;
+}
+.App{
+  width: 1130px;
+  height: 774px;
+  border-radius: 25px;
+  box-shadow: 8px 6px 29px #5c5c5c2c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.page {
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 45px;
+}
+
+.IO_container {
+  width: 720px;
+  height: 100%;
+  box-sizing: border-box;
+}
