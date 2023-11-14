@@ -23,3 +23,10 @@
     color: #0066FF;
     text-decoration: underline;
 }
+input {
+    display: none;
+}
+
+.dragging {
+    background-color: #f4f7fd;
+}
