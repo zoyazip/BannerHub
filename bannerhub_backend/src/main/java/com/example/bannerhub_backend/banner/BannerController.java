@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api/v1/banner")
 public class BannerController {
     private final BannerRepository bannerRepository;
+    private final BannerService bannerService;
     @GetMapping("/all")
     public ResponseEntity<List<BannerEntity>> all() {
         return ResponseEntity.ok(bannerRepository.findAll());
@@ -31,5 +32,10 @@ public class BannerController {
     public ResponseEntity<List<BannerEntity>> getAll() {
 
         return null;
+    }
+
+    @GetMapping("/read")
+    public String runHtml() {
+        return bannerService.getDimension();
     }
 }
