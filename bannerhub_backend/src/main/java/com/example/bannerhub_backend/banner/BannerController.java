@@ -11,11 +11,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/banner")
 public class BannerController {
-
-
     private final BannerRepository bannerRepository;
     @GetMapping("/all")
-    public ResponseEntity<List<BannerEntity>> test() {
+    public ResponseEntity<List<BannerEntity>> all() {
         return ResponseEntity.ok(bannerRepository.findAll());
     }
 
@@ -24,9 +22,14 @@ public class BannerController {
 
         return bannerRepository.save(banner);
     }
-
     @DeleteMapping("/delete")
     public void deleteAll() {
         bannerRepository.deleteAll();
+    }
+
+    @GetMapping("/get-all-detailed")
+    public ResponseEntity<List<BannerEntity>> getAll() {
+
+        return null;
     }
 }

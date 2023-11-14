@@ -21,4 +21,8 @@ public class BannerEntity {
     private String pathToHtml;
     private String pathToJs;
     private String pathToImages;
+
+    private String dimension;
+    private double zipSize;
+    private String spec;
 }
