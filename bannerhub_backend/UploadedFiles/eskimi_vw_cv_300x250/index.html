@@ -11,12 +11,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="authoring-tool" content="Adobe_Animate_CC">
+<meta name="ad.size" content="width=300,height=250">
+<script src="https://s0.2mdn.net/ads/studio/cached_libs/createjs_2019.11.15_min.js"></script>
+<script>var clickTag = "https://google.lv"</script>
 <title>index</title>
-<meta name="ad.size" content="width=300,height=600">
-<script type="text/javascript">
-var clickTag="https://www.euronics.lv/kampanas/4918?utm_source=Jauns.lv&utm_medium=CPM&utm_content=gallery&utm_campaign=MC_Tefal_VC_10_2023";
-</script>
-<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+<!-- write your code here -->
 <script src="index.js"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
@@ -24,7 +23,7 @@ function init() {
 	canvas = document.getElementById("canvas");
 	anim_container = document.getElementById("animation_container");
 	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=AdobeAn.getComposition("3BFFC560E723E14CA8354B390E123B49");
+	var comp=AdobeAn.getComposition("2FC8FCDE29FF8F4BBF292F2D27F83343");
 	var lib=comp.getLibrary();
 	var loader = new createjs.LoadQueue(false);
 	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
@@ -45,8 +44,9 @@ function handleComplete(evt,comp) {
 	for(i=0; i<ssMetadata.length; i++) {
 		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
 	}
-	exportRoot = new lib._300x600();
-	stage = new lib.Stage(canvas);	
+	exportRoot = new lib._300x250();
+	stage = new lib.Stage(canvas);
+	stage.enableMouseOver();	
 	//Registers the "tick" event listener.
 	fnStartAnimation = function() {
 		stage.addChild(exportRoot);
@@ -61,13 +61,12 @@ function handleComplete(evt,comp) {
 </script>
 <!-- write your code here -->
 </head>
-<body onload="init();" style="margin:0px;">
-<a href="javascript:window.open(window.clickTag)">
-	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:300px; height:600px">
-		<canvas id="canvas" width="300" height="600" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
-		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:300px; height:600px; position: absolute; left: 0px; top: 0px; display: block;">
+<body onload="init();" style="margin:0px;cursor:pointer;" >
+<a href="#" onclick="javascript:window.open(window.clickTag, '_blank'); return false">
+	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:300px; height:250px">
+		<canvas id="canvas" width="300" height="250" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:300px; height:250px; position: absolute; left: 0px; top: 0px; display: block;">
 		</div>
-	</div>
-</a>
+	</div></a>
 </body>
 </html>

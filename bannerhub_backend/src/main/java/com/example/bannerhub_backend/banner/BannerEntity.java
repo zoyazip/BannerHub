@@ -23,6 +23,7 @@ public class BannerEntity {
     private String pathToImages;
 
     private String dimension;
-    private double zipSize;
+    private String name;
     private String spec;
+    private String size;
 }
