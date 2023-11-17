@@ -1,6 +1,5 @@
 package com.example.bannerhub_backend.banner;
 
-import jakarta.persistence.Lob;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,9 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.HashMap;
+
 
 @Service
 public class BannerService {
@@ -22,7 +20,8 @@ public class BannerService {
             - Get size of file
      */
 
-    public String getDimension(String path) {
+    public HashMap<String, String> getDimension(String path) {
+        HashMap<String, String> dimensionData = new HashMap<>();
         String width = "";
         String height = "";
         try {
@@ -34,8 +33,11 @@ public class BannerService {
         } catch (IOException e) {
             System.out.println(e);
         }
+        dimensionData.put("width", width);
+        dimensionData.put("height", height);
+        dimensionData.put("dimension", width + "x" + height);
 
-        return width + "x" + height;
+        return dimensionData;
     }
 
     public String getName(String path) {
@@ -56,6 +58,8 @@ public class BannerService {
                 return "inbox";
             case "google":
                 return "google";
+            case "delfi":
+                return "delfi";
             default:
                 return "google";
         }
@@ -69,5 +73,48 @@ public class BannerService {
 
     private File openFile(String path) {
         return new File(path);
+    }
+
+    public void setSpecificationOfBanner(BannerEntity banner) {
+        String pathToHtml = banner.getPathToHtml();
+        String spec = banner.getSpec();
+        String dimensions = banner.getDimension();
+        String width = banner.getWidth();
+        String height = banner.getHeight();
+        String link = banner.getUrl();
+
+        String specCode;
+        switch (spec) {
+            case "delfi":
+                specCode = Specifications.getDelfi(link);
+                break;
+            case "jauns":
+                specCode = Specifications.getGoogle(width, height, link);
+                break;
+            case "tvnet":
+                specCode = Specifications.getTvnet(link);
+                break;
+            case "inbox":
+                specCode = Specifications.getInbox(link);
+                break;
+            default:
+                specCode = Specifications.getGoogle(width, height,link);
+                break;
+        }
+        File html = openFile(pathToHtml);
+        try {
+            Document doc = Jsoup.parse(html);
+            Element head = doc.head();
+            head.getElementsByAttributeValue("src", "https://code.createjs.com/1.0.0/createjs.min.js").remove();
+            head.prepend(specCode);
+
+            Element body = doc.body();
+            body.children().wrap(Specifications.getATag());
+            FileUtils.writeStringToFile(new File(pathToHtml), doc.outerHtml(), "UTF-8");
+        } catch (IOException e) {
+            System.out.println("Error by setting specification of banner: " + e);
+        }
+
+
     }
 }

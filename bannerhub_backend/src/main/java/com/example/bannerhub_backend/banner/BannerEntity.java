@@ -23,7 +23,10 @@ public class BannerEntity {
     private String pathToImages;
 
     private String dimension;
+    private String width;
+    private String height;
     private String name;
     private String spec;
     private String size;
+    private String url;
 }

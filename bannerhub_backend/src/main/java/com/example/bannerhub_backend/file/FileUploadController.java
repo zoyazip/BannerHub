@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin
@@ -33,7 +34,7 @@ public class FileUploadController {
             String pathToImages = folder + "/images";
 
             String name = bannerService.getName(pathToHtml);
-            String dimension = bannerService.getDimension(pathToHtml);
+            HashMap dimension = bannerService.getDimension(pathToHtml);
             String spec = bannerService.getSpecificationFromFileName(pathToHtml);
             String size = bannerService.getBannerSize(folder);
 
@@ -43,7 +44,9 @@ public class FileUploadController {
             bannerEntity.setPathToJs(pathToJS);
             bannerEntity.setPathToImages(pathToImages);
             bannerEntity.setName(name);
-            bannerEntity.setDimension(dimension);
+            bannerEntity.setDimension(dimension.get("dimension").toString());
+            bannerEntity.setWidth(dimension.get("width").toString());
+            bannerEntity.setHeight(dimension.get("height").toString());
             bannerEntity.setSpec(spec);
             bannerEntity.setSize(size);
 

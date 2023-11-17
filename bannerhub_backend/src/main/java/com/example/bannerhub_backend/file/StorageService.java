@@ -65,4 +65,13 @@ public class StorageService {
 
     }
 
+    public void removeBannersFromStorage() {
+        try {
+            File directory = new File(uploadFolder);
+            FileUtils.cleanDirectory(directory);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
 }
