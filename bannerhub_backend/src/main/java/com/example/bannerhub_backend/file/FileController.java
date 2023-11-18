@@ -21,6 +21,10 @@ public class FileController {
     private final BannerRepository bannerRepository;
     private final BannerService bannerService;
 
+    /*
+        This controller takes care of recieving banners from client
+        As well it's creating initial banner entity
+     */
     @PostMapping("/upload")
     public ResponseEntity<ArrayList<BannerEntity>> handleFolderUpload(@RequestParam("folder") List<MultipartFile> file) {
         storageService.saveUploadedFiles(file);

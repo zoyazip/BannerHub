@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.ContentDisposition;
 
+/*
+    This is Banner Controller which contains basic JPA operations
+        - Getting data
+        - Removing data
+        - Updating data
+        - Sending files to client
+ */
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
@@ -59,6 +66,8 @@ public class BannerController {
                     .body(zipContent);
         } catch (IOException e) {
             System.out.println("Error while downloading: " + e);
+        } finally {
+            storageService.removeFolder("Export/Export.zip");
         }
         return ResponseEntity.badRequest().build();
     }
