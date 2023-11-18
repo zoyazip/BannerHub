@@ -23,7 +23,7 @@
     color: #0066FF;
     text-decoration: underline;
 }
-input {
+.fileInput {
     display: none;
 }
 

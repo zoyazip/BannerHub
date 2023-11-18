@@ -80,4 +80,14 @@ public class StorageService {
         ZipUtility.zip(paths, exportFolder, uploadFolder);
     }
 
+    public void removeFolder(String path) {
+        try {
+            FileUtils.deleteDirectory(new File(uploadFolder + "/" + path));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+    }
+
+
 }
