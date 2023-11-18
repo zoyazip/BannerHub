@@ -2,12 +2,10 @@ package com.example.bannerhub_backend.banner;
 
 import com.example.bannerhub_backend.file.StorageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -40,11 +38,26 @@ public class BannerController {
         return ResponseEntity.ok(banner);
     }
 
-    @GetMapping("/export-banners")
-    public void exportBanners() {
+//    @GetMapping("/process-banners")
+    public void processBanners() {
         List<BannerEntity> banners = bannerRepository.findAll();
         for (BannerEntity banner : banners) {
             bannerService.setSpecificationOfBanner(banner);
         }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteBanner(@PathVariable int id) {
+        BannerEntity removedBanner = bannerRepository.findById(id).get();
+        bannerRepository.delete(removedBanner);
+        return "Banner with id: " + id + " has been removed from database";
+    }
+
+
+    @GetMapping("/export")
+    public void export() {
+        ArrayList<String> paths = storageService.getListOfFolders();
+        processBanners();
+        storageService.zipFolders(paths);
     }
 }

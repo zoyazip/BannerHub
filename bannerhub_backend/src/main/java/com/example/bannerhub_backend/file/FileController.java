@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.zeroturnaround.zip.ZipUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1")
 @RequiredArgsConstructor
-public class FileUploadController {
+public class FileController {
     private final StorageService storageService;
     private final BannerRepository bannerRepository;
     private final BannerService bannerService;
@@ -56,5 +57,12 @@ public class FileUploadController {
 
         return ResponseEntity.ok(banners);
     }
+
+//    @GetMapping("/export")
+//    public void export() {
+//        ArrayList<String> paths = storageService.getListOfFolders();
+//
+//        storageService.zipFolders(paths);
+//    }
 
 }

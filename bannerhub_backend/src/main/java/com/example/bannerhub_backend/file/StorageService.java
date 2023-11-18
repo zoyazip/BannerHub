@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.zeroturnaround.zip.ZipUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StorageService {
     private final String uploadFolder = "UploadedFiles";
+    private final String exportFolder = "Export/Export.zip";
 
     public String saveUploadedFiles(List<MultipartFile> files) {
         try {
@@ -26,7 +28,7 @@ public class StorageService {
                 Path filePath = Paths.get(uploadFolder, relativePath);
                 Files.createDirectories(filePath.getParent());
                 Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-                UnzipUtility.unzip(filePath.toString(), uploadFolder);
+                ZipUtility.unzip(filePath.toString(), uploadFolder);
                 removeFLA(uploadFolder);
                 Files.deleteIfExists(filePath);
             }
@@ -72,6 +74,10 @@ public class StorageService {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    public void zipFolders(List<String> paths) {
+        ZipUtility.zip(paths, exportFolder, uploadFolder);
     }
 
 }
