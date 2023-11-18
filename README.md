@@ -33,7 +33,7 @@ I'm really happy with the result, and will use it in daily.
 - After that user can paste the link for the clickTag (after clicking on banner browser will open a new tab with the provided link)
 - After clicking on download button, client will send a request with updated banner details (link), server process html files, pack them into zip file and sends it back as one file
 
-###Thing to upgrade
+### Thing to upgrade
 
 In my opinion I could make an image compression tool, to decrease file size, as it's must be less, than 150kb. But it's only attends to google specification.
 I also could refactor code, to make it more efficient and easier to read.
