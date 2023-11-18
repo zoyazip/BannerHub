@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.zeroturnaround.zip.ZipUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,12 +12,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
-
+/*
+    Storage Service is used to work with server storage:
+        - Saving banners to Upload folder
+        - Zip files
+        - Removing useless files
+        - Gets folder names
+        - Removes banners
+ */
 @Service
 @RequiredArgsConstructor
 public class StorageService {
     private final String uploadFolder = "UploadedFiles";
+
     private final String exportFolder = "Export/Export.zip";
 
     public String saveUploadedFiles(List<MultipartFile> files) {
@@ -64,7 +70,6 @@ public class StorageService {
             }
             System.out.println("File: " + fileName);
         }
-
     }
 
     public void removeBannersFromStorage() {
@@ -80,4 +85,12 @@ public class StorageService {
         ZipUtility.zip(paths, exportFolder, uploadFolder);
     }
 
+    public void removeFolder(String path) {
+        try {
+            FileUtils.deleteDirectory(new File(uploadFolder + "/" + path));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+    }
 }

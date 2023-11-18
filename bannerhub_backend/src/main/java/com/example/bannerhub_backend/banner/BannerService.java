@@ -10,15 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-
+/*
+    This service is used to manipulate HTML files
+ */
 @Service
 public class BannerService {
-    /*
-    TODO
-        Create method to extract data from html:
-            - Get banner dimensions
-            - Get size of file
-     */
 
     public HashMap<String, String> getDimension(String path) {
         HashMap<String, String> dimensionData = new HashMap<>();
@@ -101,7 +97,9 @@ public class BannerService {
                 specCode = Specifications.getGoogle(width, height,link);
                 break;
         }
+
         File html = openFile(pathToHtml);
+
         try {
             Document doc = Jsoup.parse(html);
             Element head = doc.head();
@@ -114,7 +112,5 @@ public class BannerService {
         } catch (IOException e) {
             System.out.println("Error by setting specification of banner: " + e);
         }
-
-
     }
 }

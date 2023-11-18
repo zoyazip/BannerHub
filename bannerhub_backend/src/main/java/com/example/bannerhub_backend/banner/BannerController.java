@@ -2,12 +2,24 @@ package com.example.bannerhub_backend.banner;
 
 import com.example.bannerhub_backend.file.StorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.ContentDisposition;
 
+/*
+    This is Banner Controller which contains basic JPA operations
+        - Getting data
+        - Removing data
+        - Updating data
+        - Sending files to client
+ */
 @RestController
 @CrossOrigin
 @RequiredArgsConstructor
@@ -27,18 +39,39 @@ public class BannerController {
         bannerRepository.deleteAll();
     }
 
-    @PutMapping("/update-spec/{id}")
-    public ResponseEntity<BannerEntity> updateSpec(@RequestParam String spec, @PathVariable int id, @RequestParam String url) {
-        BannerEntity banner = bannerRepository.findById(id).get();
-        banner.setSpec(spec);
-        banner.setUrl(url);
-        bannerRepository.save(banner);
-        System.out.println("Spec of id: " + id + " is updated");
+    @PutMapping("/update")
+    public ResponseEntity<String> export(@RequestParam String url) {
 
-        return ResponseEntity.ok(banner);
+        List<BannerEntity> bannerList = bannerRepository.findAll();
+        for (BannerEntity banner : bannerList) {
+            banner.setUrl(url);
+            bannerRepository.save(banner);
+        }
+        export();
+        return ResponseEntity.ok("Url was injected successfully!");
     }
 
-//    @GetMapping("/process-banners")
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> downloadFile() {
+
+        try {
+            FileInputStream zipInputStream = new FileInputStream("Export/Export.zip");
+            byte[] zipContent = zipInputStream.readAllBytes();
+            zipInputStream.close();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDisposition(ContentDisposition.parse("attachment; filename=Export.zip"));
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(zipContent);
+        } catch (IOException e) {
+            System.out.println("Error while downloading: " + e);
+        } finally {
+            storageService.removeFolder("Export/Export.zip");
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
     public void processBanners() {
         List<BannerEntity> banners = bannerRepository.findAll();
         for (BannerEntity banner : banners) {
@@ -49,12 +82,12 @@ public class BannerController {
     @DeleteMapping("/delete/{id}")
     public String deleteBanner(@PathVariable int id) {
         BannerEntity removedBanner = bannerRepository.findById(id).get();
+        storageService.removeFolder(removedBanner.getName());
         bannerRepository.delete(removedBanner);
+
         return "Banner with id: " + id + " has been removed from database";
     }
 
-
-    @GetMapping("/export")
     public void export() {
         ArrayList<String> paths = storageService.getListOfFolders();
         processBanners();
